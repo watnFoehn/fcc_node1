@@ -24,7 +24,7 @@ function isValidDate(d) {
 
 // your first API endpoint...
 app.get("/api/timestamp/:date?", function (req, res) {
-  if (!isValidDate(req.params.date)) return res.json({ error: "Invalid Date" });
+  //if (!isValidDate(req.params.date)) return res.json({ error: "Invalid Date" });
 
   const timeStampUnix = req.params.date
     ? new Date(req.params.date).getTime()
