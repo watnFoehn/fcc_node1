@@ -18,13 +18,16 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + "/views/index.html");
 });
 
-function isValidDate(d) {
-  return d instanceof Date && !isNaN(d);
-}
-
 // your first API endpoint...
 app.get("/api/timestamp/:date?", function (req, res) {
-  //if (!isValidDate(req.params.date)) return res.json({ error: "Invalid Date" });
+  if (!isNaN(req.params.date)) {
+    const date = new Date(req.params.date * 1000),
+
+    res.json({
+      unix: parseInt(req.params.date),
+      utc: date.toUTCString()
+    });
+  }
 
   const timeStampUnix = req.params.date
     ? new Date(req.params.date).getTime()
@@ -32,7 +35,10 @@ app.get("/api/timestamp/:date?", function (req, res) {
   const timeStampUTC = req.params.date
     ? new Date(req.params.date).toUTCString()
     : new Date().toUTCString();
-  res.json({ unix: timeStampUnix, utc: timeStampUTC });
+  if (timeStampUnix && timeStampUTC) {
+    res.json({ unix: timeStampUnix, utc: timeStampUTC });
+  }
+  res.json({ error: "Invalid Date" });
 });
 
 // listen for requests :)
