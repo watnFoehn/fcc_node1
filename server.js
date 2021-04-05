@@ -21,7 +21,7 @@ app.get("/", function (req, res) {
 // your first API endpoint...
 app.get("/api/timestamp/:date?", function (req, res) {
   if (!isNaN(req.params.date)) {
-    const date = new Date(req.params.date * 1000),
+    const date = new Date(parseInt(req.params.date));
 
     res.json({
       unix: parseInt(req.params.date),
