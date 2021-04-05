@@ -30,8 +30,8 @@ app.get("/api/timestamp/:date?", function (req, res) {
     ? new Date(req.params.date).getTime()
     : new Date().getTime();
   const timeStampUTC = req.params.date
-    ? new Date(req.params.date).toString()
-    : new Date().toString();
+    ? new Date(req.params.date).toUTCString()
+    : new Date().toUTCString();
   res.json({ unix: timeStampUnix, utc: timeStampUTC });
 });
 
